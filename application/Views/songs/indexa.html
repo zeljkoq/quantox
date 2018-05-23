@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+
+
+
+<div class="row mt-4">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Add a song
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <form action="songs/addsong" method="POST">
+                        <div class="form-row">
+                            <div class="col-4">
+                                <input type="text" name="artist" class="form-control" placeholder="">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="track" class="form-control" placeholder="">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="link" class="form-control" placeholder="">
+                            </div>
+                            <button class="btn btn-primary" type="submit" name="submit_add_song">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Songs
+                <span class="float-right">Total amount of songs: {{songs_amount}}</span>
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead style="background-color: #ddd; font-weight: bold;">
+                        <tr>
+                            <td>Id</td>
+                            <td>Artist</td>
+                            <td>Track</td>
+                            <td>Link</td>
+                            <td>DELETE</td>
+                            <td>EDIT</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for song in songs %}
+                        <tr>
+                            <td>{{song.id}}</td>
+                            <td>{{song.artist}}</td>
+                            <td>{{song.track}}</td>
+                            <td><a href="{{song.link}}">{{song.link}}</a> </td>
+                            <td><a href="/deletesong/{{song.id}}">Delete</a></td>
+                            <td><a href="/editsong/{{song.id}}">Edit</a></td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="container">-->
+    <!--<div class="row">-->
+
+        <!--&lt;!&ndash; add song form &ndash;&gt;-->
+        <!--<div class="box">-->
+            <!--<h3 class="lead">Add a song</h3>-->
+
+        <!--</div>-->
+        <!--&lt;!&ndash; main content output &ndash;&gt;-->
+        <!--<div class="box">-->
+            <!--<h3>Amount of songs (data from second model)</h3>-->
+            <!--<div>-->
+
+            <!--</div>-->
+            <!--<h3>Amount of songs (via AJAX)</h3>-->
+            <!--<div>-->
+                <!--<button id="javascript-ajax-button">Click here to get the amount of songs via Ajax (will be displayed in #javascript-ajax-result-box)</button>-->
+                <!--<div id="javascript-ajax-result-box"></div>-->
+            <!--</div>-->
+            <!--<h3>List of songs (data from first model)</h3>-->
+            <!--<table>-->
+
+            <!--</table>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+{% endblock %}
