@@ -60,29 +60,29 @@
 </div>
 
 
+
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('scripts'); ?>
     <script>
-
         function getIndexData()
         {
             $.ajax({
-                url: '<?php echo e(route('getData')); ?>',
+                url: '<?php echo e(route('api.get.songs')); ?>',
                 contentType: "application/json",
                 success: function(data) {
                     var html = '';
                     var htmlEmpty = '';
                     var songs = JSON.parse(data);
 
-                    if (songs == '') {
-                        htmlEmpty += '<tr>' +
-                            '<td>You don\'t have any song</td>' +
-                            '</tr>';
-                        $('#emptySongs').html(htmlEmpty);
-                    }
-                    else
-                    {
+                    // if (songs == '') {
+                    //     htmlEmpty += '<tr>' +
+                    //         '<td>You don\'t have any song</td>' +
+                    //         '</tr>';
+                    //     $('#emptySongs').html(htmlEmpty);
+                    // }
+                    // else
+                    // {
                         for (i=0;i<songs.length;i++){
                             html += '<tr>' +
                                 '<td hidden class="songId">'+songs[i].id+'</td>' +
@@ -90,12 +90,12 @@
                                 '<td id="trck">'+songs[i].track+'</td>' +
                                 '<td id="lnk"><a id="atr" target="_blank" href="'+songs[i].link+'">'+songs[i].link+'</a></td>' +
                                 // '<td><button id="editSong" type="button" class="btn btn-light"><i class="fas fa-edit"></i></button></td>' +
-                                '<td><a href="editsong/'+songs[i].id+'" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
+                                '<td><a href="/edit/'+songs[i].id+'" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
                                 '<td><button id="deleteSong" type="button" class="btn btn-light"><i class="fas fa-trash-alt"></i></i></button></td>' +
                                 '</tr>';
                         }
                         $('#songsList').html(html);
-                    }
+                    // }
                 }
             });
         }
@@ -104,21 +104,33 @@
            getIndexData();
         });
 
+
         $('#addSong').click(function() {
             var artist = $('#artist').val();
             var track = $('#track').val();
             var link = $('#link').val();
             $.ajax({
                 type: "post",
-                url: '<?php echo e(route('addsong')); ?>',
+                url: '<?php echo e(route('create')); ?>',
                 data: ({artist: artist, track: track, link: link}),
                 success: function(response) {
-                    $("#emptySongs").load(" #emptySongs");
-                    $("#songsList").load(" #songsList");
                     $('#artist').val('');
                     $('#track').val('');
                     $('#link').val('');
-                    getIndexData();
+                    html = '';
+
+                    response = JSON.parse(response);
+                    html += '<tr>' +
+                        '<td hidden class="songId">'+response.id+'</td>' +
+                        '<td id="art">'+response.artist+'</td>' +
+                        '<td id="trck">'+response.track+'</td>' +
+                        '<td id="lnk"><a id="atr" target="_blank" href="'+response.link+'">'+response.link+'</a></td>' +
+                        // '<td><button id="editSong" type="button" class="btn btn-light"><i class="fas fa-edit"></i></button></td>' +
+                        '<td><a href="/edit/'+response.id+'" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
+                        '<td><button id="deleteSong" type="button" class="btn btn-light"><i class="fas fa-trash-alt"></i></i></button></td>' +
+                        '</tr>';
+
+                    $('#songsList').prepend(html);
                 }
             });
         });
@@ -128,17 +140,15 @@
             var songId = $row.find(".songId").html();
             $.ajax({
                 type: "GET",
-                url: '/deletesong/' + songId,
+                url: '/api/delete/' + songId,
                 data: $(this).serialize(),
                 contentType: "application/json",
-                success: function(respo) {
-                    $("#emptySongs").load(" #emptySongs");
-                    $("#songsList").load(" #songsList");
-                    getIndexData();
+                success: function(response) {
+                    response = JSON.parse(response);
+                    $('td:contains("'+response+'")').parent().css("display", "none");
                 }
             });
         });
-
     </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('base', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

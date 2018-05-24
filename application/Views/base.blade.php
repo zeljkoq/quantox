@@ -32,20 +32,12 @@
 </div>
 
 <div class="container">
-    @if(isset($_SESSION['error']))
-        <div class="alert alert-danger">
-            {{$_SESSION['message']}}
-        </div>
-    @elseif(isset($_SESSION['success']))
-        <div class="alert alert-success">
-            {{$_SESSION['message']}}
-        </div>
-    @else
-    @endif
     @yield('content')
 </div>
 
+<div id="messages">
 
+</div>
 
 
 <!-- Scripts -->
@@ -62,5 +54,23 @@
 <!--<script src="https:w Plyr('#player');</script>-->
 <script src="{{URL}}/js/application.js"></script>
 @yield('scripts')
+
+<script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+
+        $.ajax({
+            type: "get",
+            url: '{{route('destroy.message')}}',
+            success: function(response) {
+
+            }
+        });
+
+    }, 3000);
+</script>
+
 </body>
 </html>

@@ -26,26 +26,13 @@ class SongsController extends Controller
 
         if (User::isLogged()) {
 
-            $this->view('songs/index', []);
+            $this->view('songs/index', [
+
+            ]);
 
         } else {
             redirect('login');
         }
-
-    }
-
-    /**
-     * Get json data for all songs
-     *
-     * @return string Return json data for all songs
-     * @access public
-     */
-
-    public function getData()
-    {
-        $songs = Song::where('user_id', User::getData()->id)->orderBy('id', 'desc')->get();
-
-        return json_encode($songs);
 
     }
 
@@ -78,9 +65,9 @@ class SongsController extends Controller
                 'user_id' => User::getData()->id,
             ];
             Song::create($params);
-//            redirect('songs');
+            return json_encode($params);
         } else {
-//            redirect('songs');
+
         }
 
     }
@@ -100,6 +87,7 @@ class SongsController extends Controller
             Song::destroy($song_id);
 
             redirect('songs');
+            setMessage('success', 'Song has been deleted');
         } else {
             redirect('');
         }
@@ -107,55 +95,6 @@ class SongsController extends Controller
 
     }
 
-    /**
-     * @param $song_id int Return song id for using in ajax call
-     */
-    public function editSongIndex($song_id)
-    {
-
-        $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
-
-        if ($this->isOwner(User::getData()->id, $song))
-        {
-            $this->view('songs/edit', [
-                'song' => $song_id,
-            ]);
-        }
-
-    }
-
-    /**
-     * @param int $song_id Get each song id
-     */
-
-    public function editSongIndexApi($song_id)
-    {
-
-        $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
-
-        if ($this->isOwner(User::getData()->id, $song))
-        {
-            $this->view('songs/edit', [
-                'song' => $song,
-            ]);
-        }
-
-
-    }
-
-    /**
-     * Get each song data by id
-     *
-     * @param $song_id int Each song data
-     * @return string Return json values
-     */
-
-    public function editSongDataApi($song_id)
-    {
-        $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
-
-        return json_encode($song);
-    }
 
 
     /**
@@ -197,61 +136,9 @@ class SongsController extends Controller
                 echo 'Not allowed';
             }
 
-
         } else {
             redirect('songs');
         }
     }
 
-    /**
-     * Updating song through API
-     *
-     * @param $song_id int Update song by id in API
-     */
-
-    public function updateSongApi($song_id)
-    {
-        $request = Request::capture();
-
-        $validator = new ValidatorFactory();
-        $data = $request->only([
-            'artist',
-            'track',
-            'link'
-        ]);
-        $rules = [
-            'artist' => 'required',
-            'track' => 'required',
-            'link' => 'required',
-        ];
-        $result = $validator->make($data, $rules);
-        $errors = $result->errors()->toArray();
-
-        if (empty($errors)) {
-            $song = Song::findOrFail($song_id);
-            if ($this->isOwner(User::getData()->id, $song)) {
-                $song->artist = $request->artist;
-                $song->track = $request->track;
-                $song->link = $request->link;
-
-                $song->update();
-
-                redirect('songs');
-            }
-            else {
-                echo 'Not allowed';
-            }
-            
-        } else {
-            redirect('songs');
-        }
-    }
-
-
-    public function ajaxGetStats()
-    {
-        $amount_of_songs = Song::count();
-
-        echo $amount_of_songs;
-    }
 }

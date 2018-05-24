@@ -27,10 +27,10 @@ class Routes
 
 
             $router->get('songs', 'App\Controllers\SongsController@index')->name('songs');
-            $router->get('getData', 'App\Controllers\SongsController@getData')->name('getData');
-            $router->post('/songs/addsong', 'App\Controllers\SongsController@addSong')->name('addsong');
-            $router->get('editsong/{song_id}', 'App\Controllers\SongsController@editSongIndex')->name('edit.song');
-            $router->post('updatesong/{song_id}', 'App\Controllers\SongsController@updateSong')->name('update.song');
+//            $router->get('getData', 'App\Controllers\SongsController@getData')->name('getData');
+//            $router->post('/songs/addsong', 'App\Controllers\SongsController@addSong')->name('addsong');
+//            $router->get('editsong/{song_id}', 'App\Controllers\SongsController@editSongIndex')->name('edit.song');
+//            $router->post('updatesong/{song_id}', 'App\Controllers\SongsController@updateSong')->name('update.song');
             $router->get('/deletesong/{song_id}', 'App\Controllers\SongsController@deleteSong')->name('delete.song');
 
             $router->get('songs/ajaxGetStats', 'App\Controllers\SongsController@ajaxGetStats')->name('ajaxget');
@@ -43,14 +43,28 @@ class Routes
              * API routes
              */
 
-            $router->get('api/edit/{song_id}', 'App\Controllers\SongsController@editSongDataApi')->name('api.edit.song');
-            $router->post('api/update/{song_id}', 'App\Controllers\SongsController@updateSongApi')->name('api.update.song');
+            $router->get('/api/get', 'App\Controllers\Api\SongsController@getData')->name('api.get.songs');
+            $router->post('/api/create', 'App\Controllers\Api\SongsController@addSong')->name('create');
+            $router->get('/api/songdata/{song_id}', 'App\Controllers\Api\SongsController@getEachSongData')->name('api.edit.song.data');
+            $router->get('/edit/{song_id}', 'App\Controllers\Api\SongsController@editSongIndex')->name('api.edit.song');
+            $router->post('/api/update/{song_id}', 'App\Controllers\Api\SongsController@updateSong')->name('api.update.song');
+            $router->get('/api/delete/{song_id}', 'App\Controllers\Api\SongsController@deleteSong')->name('api.delete.song');
 
 
             /*
              * End API
              */
 
+
+            /*
+             *  Functions routes
+             */
+
+            $router->get('destroyMessage', 'App\Controllers\FunctionsController@destroyMessage')->name('destroy.message');
+
+            /*
+             * End functions
+             */
             $router->get('/', 'App\Controllers\HomeController@index');
 
             $router->get('register', 'App\Controllers\Auth\RegisterController@index');

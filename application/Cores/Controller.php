@@ -27,4 +27,11 @@ abstract class Controller
             return $model->user_id == $userId;
         }
 
+        public function json($data)
+        {
+            header('Content-Type: application/json');
+            return json_encode($data);
+        }
+
+
 }

@@ -32,22 +32,12 @@
 </div>
 
 <div class="container">
-    <?php if(isset($_SESSION['error'])): ?>
-        <div class="alert alert-danger">
-            <?php echo e($_SESSION['message']); ?>
-
-        </div>
-    <?php elseif(isset($_SESSION['success'])): ?>
-        <div class="alert alert-success">
-            <?php echo e($_SESSION['message']); ?>
-
-        </div>
-    <?php else: ?>
-    <?php endif; ?>
     <?php echo $__env->yieldContent('content'); ?>
 </div>
 
+<div id="messages">
 
+</div>
 
 
 <!-- Scripts -->
@@ -64,5 +54,23 @@
 <!--<script src="https:w Plyr('#player');</script>-->
 <script src="<?php echo e(URL); ?>/js/application.js"></script>
 <?php echo $__env->yieldContent('scripts'); ?>
+
+<script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+
+        $.ajax({
+            type: "get",
+            url: '<?php echo e(route('destroy.message')); ?>',
+            success: function(response) {
+
+            }
+        });
+
+    }, 3000);
+</script>
+
 </body>
 </html>

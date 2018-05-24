@@ -48,4 +48,3 @@ function route($name, $parameters = null){
         }
     }
 }
-
