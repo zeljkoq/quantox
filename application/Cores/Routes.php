@@ -11,8 +11,6 @@ namespace App\Cores;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Routing\Router;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-
 
 
 class Routes
@@ -34,6 +32,7 @@ class Routes
             $router->get('editsong/{song_id}', 'App\Controllers\SongsController@editSongIndex')->name('edit.song');
             $router->post('updatesong/{song_id}', 'App\Controllers\SongsController@updateSong')->name('update.song');
             $router->get('/deletesong/{song_id}', 'App\Controllers\SongsController@deleteSong')->name('delete.song');
+
             $router->get('songs/ajaxGetStats', 'App\Controllers\SongsController@ajaxGetStats')->name('ajaxget');
             $router->get('login', 'App\Controllers\Auth\LoginController@index')->name('login');
             $router->get('logout', 'App\Controllers\Auth\LoginController@logout')->name('logout');

@@ -1,7 +1,6 @@
 <?php $__env->startSection('content'); ?>
 
 
-
 <div id="allSongs">
     <div class="row mt-4">
         <div class="col-sm-12">
@@ -59,7 +58,6 @@
         </div>
     </div>
 </div>
-
 
 
 <?php $__env->stopSection(); ?>

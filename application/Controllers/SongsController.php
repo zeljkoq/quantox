@@ -8,14 +8,22 @@ use App\Models\Song;
 use Illuminate\Http\Request;
 use JeffOchoa\ValidatorFactory;
 
-
+/**
+ * Class SongsController
+ * @package App\Controllers
+ * @access public
+ */
 
 class SongsController extends Controller
 {
 
+    /**
+     * Render main index view for all songs
+     */
 
     public function index()
     {
+
         if (User::isLogged()) {
 
             $this->view('songs/index', []);
@@ -25,6 +33,14 @@ class SongsController extends Controller
         }
 
     }
+
+    /**
+     * Get json data for all songs
+     *
+     * @return string Return json data for all songs
+     * @access public
+     */
+
     public function getData()
     {
         $songs = Song::where('user_id', User::getData()->id)->orderBy('id', 'desc')->get();
@@ -33,6 +49,9 @@ class SongsController extends Controller
 
     }
 
+    /**
+     * Add song to the collection
+     */
 
     public function addSong()
     {
@@ -66,6 +85,13 @@ class SongsController extends Controller
 
     }
 
+    /**
+     * If user is owner of song it will be deleted
+     *
+     * @param $song_id int
+     *
+     */
+
     public function deleteSong($song_id)
     {
         $song = Song::where('id', $song_id)->first();
@@ -80,6 +106,10 @@ class SongsController extends Controller
 
 
     }
+
+    /**
+     * @param $song_id int Return song id for using in ajax call
+     */
     public function editSongIndex($song_id)
     {
 
@@ -94,6 +124,10 @@ class SongsController extends Controller
 
     }
 
+    /**
+     * @param int $song_id Get each song id
+     */
+
     public function editSongIndexApi($song_id)
     {
 
@@ -106,13 +140,29 @@ class SongsController extends Controller
             ]);
         }
 
+
     }
+
+    /**
+     * Get each song data by id
+     *
+     * @param $song_id int Each song data
+     * @return string Return json values
+     */
+
     public function editSongDataApi($song_id)
     {
         $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
 
         return json_encode($song);
     }
+
+
+    /**
+     * Updating song through PHP form
+     *
+     * @param $song_id int Update song by id
+     */
 
     public function updateSong($song_id)
     {
@@ -153,6 +203,12 @@ class SongsController extends Controller
         }
     }
 
+    /**
+     * Updating song through API
+     *
+     * @param $song_id int Update song by id in API
+     */
+
     public function updateSongApi($song_id)
     {
         $request = Request::capture();
@@ -185,12 +241,12 @@ class SongsController extends Controller
             else {
                 echo 'Not allowed';
             }
-
-
+            
         } else {
             redirect('songs');
         }
     }
+
 
     public function ajaxGetStats()
     {

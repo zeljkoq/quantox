@@ -5,6 +5,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
+/**
+ * Class User
+ * @package App\Models
+ * @access public
+ */
+
 class User extends Eloquent
 {
 
@@ -19,6 +25,10 @@ class User extends Eloquent
 
     public $timestamps = [];
 
+    /**
+     * @return bool Return true if user is logged in
+     */
+
     public static function isLogged()
     {
         if (isset($_SESSION['user']) && $_SESSION['user'] == true)
@@ -31,6 +41,10 @@ class User extends Eloquent
             return false;
         }
     }
+
+    /**
+     * @return mixed Return current logged user data
+     */
 
     public static function getData()
     {

@@ -8,7 +8,11 @@
 
 namespace App\Controllers;
 
-
+/**
+ * Class ExceptionsController
+ * @package App\Controllers
+ * @access public
+ */
 
 class ExceptionsController
 {

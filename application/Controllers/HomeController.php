@@ -4,7 +4,12 @@
 namespace App\Controllers;
 
 use App\Cores\Controller;
-use App\Models\User;
+
+/**
+ * Class HomeController
+ * @package App\Controllers
+ * @access public
+ */
 
 class HomeController extends Controller
 {

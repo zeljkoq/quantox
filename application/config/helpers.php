@@ -6,6 +6,10 @@
  * Time: 11.50
  */
 
+/**
+ * @param $name string Redirection route
+ * @access private
+ */
 function redirect($name)
 {
     if ($name == null)
@@ -17,10 +21,14 @@ function redirect($name)
         echo "<script type='text/javascript'> document.location = '". URL . $name . "'; </script>";
     }
 
-
-
 }
 
+/**
+ * @param $name string Enter route name
+ * @param null $parameters Enter route parameters in format ['parameter' =>  $variable]
+ * @return string Test
+ * @access private
+ */
 
 function route($name, $parameters = null){
     $routes = App\Cores\Routes::getRoutes();

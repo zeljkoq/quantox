@@ -1,8 +1,6 @@
 @extends ('base')
 
-
 @section ('content')
-
 
 
 <div id="allSongs">
@@ -62,7 +60,6 @@
         </div>
     </div>
 </div>
-
 
 
 @endsection
