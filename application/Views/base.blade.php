@@ -19,7 +19,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
                 @if (\App\Models\User::isLogged())
-                    <a class="nav-item nav-link" href="songs">Songs</a>
+                    <a class="nav-item nav-link" href="{{route('songs')}}">Songs</a>
                     {{--<a class="nav-item nav-link" href="#" id="songsListAdd">Songs</a>--}}
                     <a class="nav-item nav-link" href="{{URL}}logout">Logout</a>
                 @else

@@ -31,14 +31,26 @@ class Routes
             $router->get('songs', 'App\Controllers\SongsController@index')->name('songs');
             $router->get('getData', 'App\Controllers\SongsController@getData')->name('getData');
             $router->post('/songs/addsong', 'App\Controllers\SongsController@addSong')->name('addsong');
-            $router->get('editsong/{song_id}', 'App\Controllers\SongsController@editSong')->name('edit.song');
+            $router->get('editsong/{song_id}', 'App\Controllers\SongsController@editSongIndex')->name('edit.song');
             $router->post('updatesong/{song_id}', 'App\Controllers\SongsController@updateSong')->name('update.song');
             $router->get('/deletesong/{song_id}', 'App\Controllers\SongsController@deleteSong')->name('delete.song');
             $router->get('songs/ajaxGetStats', 'App\Controllers\SongsController@ajaxGetStats')->name('ajaxget');
             $router->get('login', 'App\Controllers\Auth\LoginController@index')->name('login');
-            $router->get('logout', 'App\Controllers\Auth\LoginController@logout');
+            $router->get('logout', 'App\Controllers\Auth\LoginController@logout')->name('logout');
             $router->get('test', 'App\Controllers\SongsController@test')->name('test');
 
+
+            /*
+             * API routes
+             */
+
+            $router->get('api/edit/{song_id}', 'App\Controllers\SongsController@editSongDataApi')->name('api.edit.song');
+            $router->post('api/update/{song_id}', 'App\Controllers\SongsController@updateSongApi')->name('api.update.song');
+
+
+            /*
+             * End API
+             */
 
             $router->get('/', 'App\Controllers\HomeController@index');
 

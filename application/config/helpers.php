@@ -17,10 +17,7 @@ function redirect($name)
         echo "<script type='text/javascript'> document.location = '". URL . $name . "'; </script>";
     }
 
-    function with()
-    {
-        echo '123';
-    }
+
 
 }
 

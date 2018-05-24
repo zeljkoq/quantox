@@ -19,7 +19,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
                 <?php if(\App\Models\User::isLogged()): ?>
-                    <a class="nav-item nav-link" href="songs">Songs</a>
+                    <a class="nav-item nav-link" href="<?php echo e(route('songs')); ?>">Songs</a>
                     
                     <a class="nav-item nav-link" href="<?php echo e(URL); ?>logout">Logout</a>
                 <?php else: ?>

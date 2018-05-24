@@ -38,19 +38,21 @@
                     Songs
                  </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead style="background-color: #ddd; font-weight: bold;">
-                            <tr>
-                                <td>Artist</td>
-                                <td>Track</td>
-                                <td>Link</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </thead>
-                            <tbody id="songsList"></tbody>
-                        </table>
+                    <div>
+                        <div id="emptySongs" class="table-responsive">
+                            <table class="table table-striped">
+                                <thead style="background-color: #ddd; font-weight: bold;">
+                                <tr>
+                                    <td>Artist</td>
+                                    <td>Track</td>
+                                    <td>Link</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody id="songsList"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,32 +67,43 @@
 <?php $__env->startSection('scripts'); ?>
     <script>
 
-        function getData()
+        function getIndexData()
         {
             $.ajax({
                 url: '<?php echo e(route('getData')); ?>',
                 contentType: "application/json",
                 success: function(data) {
                     var html = '';
+                    var htmlEmpty = '';
                     var songs = JSON.parse(data);
-                    for (i=0;i<songs.length;i++){
 
-                        html += '<tr>' +
-                            '<td hidden class="songId">'+songs[i].id+'</td>' +
-                            '<td id="art" contenteditable="true">'+songs[i].artist+'</td>' +
-                            '<td id="trck" contenteditable>'+songs[i].track+'</td>' +
-                            '<td id="lnk" contenteditable><a target="_blank" href="'+songs[i].link+'">'+songs[i].link+'</a></td>' +
-                            '<td><button id="editSong" type="button" class="btn btn-light"><i class="fas fa-edit"></i></button></td>' +
-                            '<td><button id="deleteSong" type="button" class="btn btn-light"><i class="fas fa-eraser"></i></button></td>' +
+                    if (songs == '') {
+                        htmlEmpty += '<tr>' +
+                            '<td>You don\'t have any song</td>' +
                             '</tr>';
+                        $('#emptySongs').html(htmlEmpty);
                     }
-                    $('#songsList').append(html);
+                    else
+                    {
+                        for (i=0;i<songs.length;i++){
+                            html += '<tr>' +
+                                '<td hidden class="songId">'+songs[i].id+'</td>' +
+                                '<td id="art">'+songs[i].artist+'</td>' +
+                                '<td id="trck">'+songs[i].track+'</td>' +
+                                '<td id="lnk"><a id="atr" target="_blank" href="'+songs[i].link+'">'+songs[i].link+'</a></td>' +
+                                // '<td><button id="editSong" type="button" class="btn btn-light"><i class="fas fa-edit"></i></button></td>' +
+                                '<td><a href="editsong/'+songs[i].id+'" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
+                                '<td><button id="deleteSong" type="button" class="btn btn-light"><i class="fas fa-trash-alt"></i></i></button></td>' +
+                                '</tr>';
+                        }
+                        $('#songsList').html(html);
+                    }
                 }
             });
         }
 
-        $(document).ready(function() {
-            getData();
+        $(document).ready(function () {
+           getIndexData();
         });
 
         $('#addSong').click(function() {
@@ -101,14 +114,16 @@
                 type: "post",
                 url: '<?php echo e(route('addsong')); ?>',
                 data: ({artist: artist, track: track, link: link}),
-
                 success: function(response) {
+                    $("#emptySongs").load(" #emptySongs");
                     $("#songsList").load(" #songsList");
-                    getData();
+                    $('#artist').val('');
+                    $('#track').val('');
+                    $('#link').val('');
+                    getIndexData();
                 }
             });
         });
-
 
         $('body').on('click', '#deleteSong', function() {
             var $row = $(this).closest("tr");
@@ -119,26 +134,9 @@
                 data: $(this).serialize(),
                 contentType: "application/json",
                 success: function(respo) {
+                    $("#emptySongs").load(" #emptySongs");
                     $("#songsList").load(" #songsList");
-                    getData();
-                }
-            });
-        });
-
-        $('body').on('click', '#editSong', function() {
-            var $row = $(this).closest("tr");
-            var songId = $row.find(".songId").html();
-            var art = $('#art').html();
-            var trck = $('#trck').html();
-            var lnk = $('#lnk').html();
-            $.ajax({
-                type: "post",
-                url: 'editsong/' + songId,
-                data: ({artist: art, track: trck, link: lnk}),
-                console.log(art);
-                success: function(response) {
-                    // $("#songsList").load(" #songsList");
-                    // getData();
+                    getIndexData();
                 }
             });
         });

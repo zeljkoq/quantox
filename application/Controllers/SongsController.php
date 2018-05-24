@@ -13,6 +13,7 @@ use JeffOchoa\ValidatorFactory;
 class SongsController extends Controller
 {
 
+
     public function index()
     {
         if (User::isLogged()) {
@@ -79,27 +80,43 @@ class SongsController extends Controller
 
 
     }
-
-    public function editSong($song_id)
+    public function editSongIndex($song_id)
     {
 
         $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
 
-        if ($song) {
+        if ($this->isOwner(User::getData()->id, $song))
+        {
             $this->view('songs/edit', [
-                'song' => $song,
+                'song' => $song_id,
             ]);
-        } else {
-            redirect('');
         }
 
     }
 
-    public function updateSong($song_id)
+    public function editSongIndexApi($song_id)
     {
 
-        $request = Request::capture();
+        $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
 
+        if ($this->isOwner(User::getData()->id, $song))
+        {
+            $this->view('songs/edit', [
+                'song' => $song,
+            ]);
+        }
+
+    }
+    public function editSongDataApi($song_id)
+    {
+        $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
+
+        return json_encode($song);
+    }
+
+    public function updateSong($song_id)
+    {
+        $request = Request::capture();
 
         $validator = new ValidatorFactory();
         $data = $request->only([
@@ -134,9 +151,46 @@ class SongsController extends Controller
         } else {
             redirect('songs');
         }
-
     }
 
+    public function updateSongApi($song_id)
+    {
+        $request = Request::capture();
+
+        $validator = new ValidatorFactory();
+        $data = $request->only([
+            'artist',
+            'track',
+            'link'
+        ]);
+        $rules = [
+            'artist' => 'required',
+            'track' => 'required',
+            'link' => 'required',
+        ];
+        $result = $validator->make($data, $rules);
+        $errors = $result->errors()->toArray();
+
+        if (empty($errors)) {
+            $song = Song::findOrFail($song_id);
+            if ($this->isOwner(User::getData()->id, $song)) {
+                $song->artist = $request->artist;
+                $song->track = $request->track;
+                $song->link = $request->link;
+
+                $song->update();
+
+                redirect('songs');
+            }
+            else {
+                echo 'Not allowed';
+            }
+
+
+        } else {
+            redirect('songs');
+        }
+    }
 
     public function ajaxGetStats()
     {
