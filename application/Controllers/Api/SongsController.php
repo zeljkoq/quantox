@@ -63,8 +63,6 @@ class SongsController extends Controller
         $errors = $result->errors()->toArray();
 
         if (empty($errors)) {
-            $response = new \stdClass();
-
             $song = new Song();
 
             $song->artist = $request->artist;
@@ -161,6 +159,9 @@ class SongsController extends Controller
         }
     }
 
+    /**
+     *
+     */
     public function ajaxGetStats()
     {
         $amount_of_songs = Song::count();
