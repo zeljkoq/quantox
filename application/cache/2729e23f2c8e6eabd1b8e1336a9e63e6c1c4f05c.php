@@ -24,7 +24,7 @@
                         </div>
                     
                 </div>
-                <div id="message"></div>
+
             </div>
         </div>
     </div>
@@ -61,7 +61,8 @@
                 url: '<?php echo e(route('api.update.song', ['song_id' => $song])); ?>',
                 data: ({artist: artist, track: track, link: link}),
                 success: function(response) {
-                    window.location.replace('/songs');
+                    response = JSON.parse(response);
+                    setMessage('success', response);
                 }
             });
         });

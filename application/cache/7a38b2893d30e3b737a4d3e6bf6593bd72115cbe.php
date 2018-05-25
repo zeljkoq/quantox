@@ -120,6 +120,7 @@
                     html = '';
 
                     response = JSON.parse(response);
+                    console.log(response);
                     html += '<tr>' +
                         '<td hidden class="songId">'+response.id+'</td>' +
                         '<td id="art">'+response.artist+'</td>' +
@@ -144,8 +145,12 @@
                 data: $(this).serialize(),
                 contentType: "application/json",
                 success: function(response) {
+                    // response = JSON.stringify(response);
                     response = JSON.parse(response);
-                    $('td:contains("'+response+'")').parent().css("display", "none");
+                    console.log(response);
+                    $('td:contains("'+response.song+'")').parent().css("display", "none");
+                    setMessage('success', response.message);
+
                 }
             });
         });

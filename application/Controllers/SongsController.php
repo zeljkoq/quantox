@@ -37,6 +37,25 @@ class SongsController extends Controller
     }
 
     /**
+     * Parse $song_id to the blade view, and use it in ajax call
+     *
+     * @param int $song_id Get each song id
+     */
+
+    public function editSongIndex($song_id)
+    {
+        $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
+
+        if ($this->isOwner(User::getData()->id, $song))
+        {
+            $this->view('songs/edit', [
+                'song' => $song_id,
+            ]);
+        }
+
+    }
+
+    /**
      * Add song to the collection
      */
 

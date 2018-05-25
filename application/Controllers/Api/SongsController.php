@@ -40,6 +40,7 @@ class SongsController extends Controller
 
     /**
      * Add song to the collection
+     * @return string json
      */
 
     public function addSong()
@@ -74,15 +75,7 @@ class SongsController extends Controller
 
             $response->song = $song;
 
-//            $params = [
-//                'artist' => $request->artist,
-//                'track' => $request->track,
-//                'link' => $request->link,
-//                'user_id' => User::getData()->id,
-//            ];
-//            Song::create($request->all());
-
-            return json_encode($song);
+            return $this->json($song);
 
         }
 
@@ -102,29 +95,14 @@ class SongsController extends Controller
 
         if ($this->isOwner(User::getData()->id, $song)) {
             Song::destroy($song_id);
-            return $this->json($song_id);
+            $response = new \stdClass();
+            $response->message = "Song has been deleted.";
+            $response->song = $song_id;
+            return $this->json($response);
         }
     }
 
 
-    /**
-     * Parse $song_id to the blade view, and use it in ajax call
-     *
-     * @param int $song_id Get each song id
-     */
-
-    public function editSongIndex($song_id)
-    {
-        $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
-
-        if ($this->isOwner(User::getData()->id, $song))
-        {
-            $this->view('songs/edit', [
-                'song' => $song_id,
-            ]);
-        }
-
-    }
 
     /**
      * Return song json data by song id
@@ -180,6 +158,7 @@ class SongsController extends Controller
             $response->artist = $request->artist;
             $response->track = $request->track;
             $response->artist = $request->link;
+            $response->message = "Song has been updated.";
 
             return $this->json($response);
         }

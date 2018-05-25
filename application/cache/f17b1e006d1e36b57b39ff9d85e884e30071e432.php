@@ -35,7 +35,7 @@
     <?php echo $__env->yieldContent('content'); ?>
 </div>
 
-<div id="messages">
+<div id="messages" class="alert">
 
 </div>
 
@@ -46,6 +46,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+<script defer src="<?php echo e(URL); ?>js/app.js"></script>
 
 
 <script>
@@ -55,22 +56,7 @@
 <script src="<?php echo e(URL); ?>/js/application.js"></script>
 <?php echo $__env->yieldContent('scripts'); ?>
 
-<script>
-    window.setTimeout(function() {
-        $(".alert").fadeTo(500, 0).slideUp(500, function(){
-            $(this).remove();
-        });
 
-        $.ajax({
-            type: "get",
-            url: '<?php echo e(route('destroy.message')); ?>',
-            success: function(response) {
-
-            }
-        });
-
-    }, 3000);
-</script>
 
 </body>
 </html>
