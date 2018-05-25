@@ -35,7 +35,7 @@
     <?php echo $__env->yieldContent('content'); ?>
 </div>
 
-<div id="messages" class="alert">
+<div id="messages" class="">
 
 </div>
 

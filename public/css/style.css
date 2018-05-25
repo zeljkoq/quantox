@@ -42,7 +42,7 @@
 .table td {
     vertical-align: middle;
 }
-#messages {
+.messages {
     position: fixed;
     bottom: 0;
     left: 0;

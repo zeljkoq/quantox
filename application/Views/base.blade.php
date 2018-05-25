@@ -35,7 +35,7 @@
     @yield('content')
 </div>
 
-<div id="messages" class="alert">
+<div id="messages" class="">
 
 </div>
 

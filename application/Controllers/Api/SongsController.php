@@ -74,8 +74,9 @@ class SongsController extends Controller
 
 
             $response->song = $song;
+            $response->message = 'Song added successfully';
 
-            return $this->json($song);
+            return $this->json($response);
 
         }
 

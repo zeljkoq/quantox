@@ -7,14 +7,12 @@ function setMessage(type, data)
             type = 'danger';
         }
 
-        $('#messages').addClass('alert-'+type);
+        $('#messages').after('<div id="messages" class=""></div>');
+        $('#messages').addClass('messages alert alert-'+type);
         $('#messages').text(data.message);
         window.setTimeout(function() {
-            $('#messages').text('');
-            $(".alert").fadeTo(500, 0).slideUp(500, function(){
-                $(this).remove();
-            });
-
+                $('#messages').empty();
+                $('#messages').removeClass('messages alert alert'+type);
         }, 3000);
     }
 }
