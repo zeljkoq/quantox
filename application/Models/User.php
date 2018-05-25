@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App\Models
  * @access public
  */
-
 class User extends Eloquent
 {
 
@@ -31,12 +30,9 @@ class User extends Eloquent
 
     public static function isLogged()
     {
-        if (isset($_SESSION['user']) && $_SESSION['user'] == true)
-        {
+        if (isset($_SESSION['user']) && $_SESSION['user'] == true) {
             return true;
-        }
-        else
-        {
+        } else {
             $_SESSION['user'] = false;
             return false;
         }
@@ -49,6 +45,11 @@ class User extends Eloquent
     public static function getData()
     {
         return $user = User::where('email', $_SESSION['user_email'])->first();
+    }
+
+    public function songs()
+    {
+        return $this->hasMany('App\Models\Song');
     }
 
 }

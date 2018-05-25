@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
+
 /**
  * Class Song
  * @package App\Models
@@ -25,5 +26,10 @@ class Song extends Eloquent
     protected $table = 'songs';
 
     public $timestamps = [];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 
 }

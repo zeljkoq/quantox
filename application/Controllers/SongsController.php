@@ -5,8 +5,8 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Cores\Controller;
 use App\Models\Song;
-use Illuminate\Http\Request;
-use JeffOchoa\ValidatorFactory;
+//use Illuminate\Http\Request;
+//use JeffOchoa\ValidatorFactory;
 
 /**
  * Class SongsController
@@ -40,12 +40,15 @@ class SongsController extends Controller
 
     public function editSongIndex($song_id)
     {
-        $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
 
-        if ($this->isOwner(User::getData()->id, $song)) {
+        $song = Song::where('user_id', User::getData()->id)->first();
+
+        if ($song->user->id) {
             $this->view('songs/edit', [
                 'song' => $song_id,
             ]);
+        } else {
+            redirect('');
         }
     }
 
