@@ -34,7 +34,7 @@ class SongsController extends Controller
     {
         $songs = Song::where('user_id', User::getData()->id)->orderBy('id', 'desc')->get();
 
-        return json_encode($songs);
+        return $this->json($songs);
 
     }
 

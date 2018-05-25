@@ -7,7 +7,7 @@ function setMessage(type, data)
             type = 'danger';
         }
 
-        $('#messages').after('<div id="messages" class=""></div>');
+        // $('#messages').after('<div id="messages" class=""></div>');
         $('#messages').addClass('messages alert alert-'+type);
         $('#messages').text(data.message);
         window.setTimeout(function() {
