@@ -151,7 +151,7 @@
                     response = JSON.parse(response);
                     console.log(response);
                     $('td:contains("'+response.song+'")').parent().css("display", "none");
-                    setMessage('success', response.message);
+                    setMessage('success', response);
 
                 }
             });

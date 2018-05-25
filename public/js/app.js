@@ -10,11 +10,11 @@ function setMessage(type, data)
         $('#messages').addClass('alert-'+type);
         $('#messages').text(data.message);
         window.setTimeout(function() {
+            $('#messages').text('');
             $(".alert").fadeTo(500, 0).slideUp(500, function(){
                 $(this).remove();
             });
-            $('#messages').text('');
-
+            
         }, 3000);
     }
 }
