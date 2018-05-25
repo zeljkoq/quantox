@@ -26,7 +26,7 @@ class Routes
             $router = new Router($dispatcher);
 
 
-            $router->get('songs', 'App\Controllers\SongsController@index')->name('songs');
+            $router->get('/songs', 'App\Controllers\SongsController@index')->name('songs');
 //            $router->get('getData', 'App\Controllers\SongsController@getData')->name('getData');
 //            $router->post('/songs/addsong', 'App\Controllers\SongsController@addSong')->name('addsong');
 //            $router->get('editsong/{song_id}', 'App\Controllers\SongsController@editSongIndex')->name('edit.song');
@@ -43,7 +43,7 @@ class Routes
              * API routes
              */
 
-            $router->get('/api/get', 'App\Controllers\Api\SongsController@getData')->name('api.get.songs');
+            $router->get('/api/get/{user_id}', 'App\Controllers\Api\SongsController@getData')->name('api.get.songs');
             $router->post('/api/create', 'App\Controllers\Api\SongsController@addSong')->name('create');
             $router->get('/api/songdata/{song_id}', 'App\Controllers\Api\SongsController@getEachSongData')->name('api.edit.song.data');
             $router->post('/api/update/{song_id}', 'App\Controllers\Api\SongsController@updateSong')->name('api.update.song');

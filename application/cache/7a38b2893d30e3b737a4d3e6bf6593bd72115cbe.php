@@ -60,7 +60,6 @@
 </div>
 
 
-
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('scripts'); ?>
@@ -68,7 +67,7 @@
         function getIndexData()
         {
             $.ajax({
-                url: '<?php echo e(route('api.get.songs')); ?>',
+                url: "<?php echo e(route('api.get.songs', ['user_id' => $user_id])); ?>",
                 contentType: "application/json",
                 success: function(data) {
                     var html = '';

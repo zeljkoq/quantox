@@ -5,6 +5,7 @@
  * Date: 24.5.18.
  * Time: 13.53
  */
+
 namespace App\Controllers\Api;
 
 use App\Models\User;
@@ -18,24 +19,25 @@ use JeffOchoa\ValidatorFactory;
  * @package App\Controllers\Api
  * @access public
  */
-
 class SongsController extends Controller
 {
-
-
     /**
      * Get json data for all songs
      *
+     * @param $user_id int Return data for user
      * @return string Return json data for all songs
      * @access public
      */
 
-    public function getData()
+    public function getData($user_id)
     {
-        $songs = Song::where('user_id', User::getData()->id)->orderBy('id', 'desc')->get();
+        if (User::isLogged()) {
+            $songs = Song::where('user_id', User::getData()->id)->orderBy('id', 'desc')->get();
+        } else {
+            $songs = Song::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+        }
 
         return $this->json($songs);
-
     }
 
     /**
@@ -59,8 +61,8 @@ class SongsController extends Controller
         ];
         $result = $validator->make($data, $rules);
         $errors = $result->errors()->toArray();
-        if (empty($errors)) {
 
+        if (empty($errors)) {
             $response = new \stdClass();
 
             $song = new Song();
@@ -72,14 +74,11 @@ class SongsController extends Controller
 
             $song->save();
 
-
-            $response->song = $song;
-            $response->message = 'Song added successfully';
-
-            return $this->json($response);
-
+            return $this->json([
+                'song' => $song,
+                'message' => 'Song added successfully',
+            ]);
         }
-
     }
 
     /**
@@ -96,13 +95,13 @@ class SongsController extends Controller
 
         if ($this->isOwner(User::getData()->id, $song)) {
             Song::destroy($song_id);
-            $response = new \stdClass();
-            $response->message = "Song has been deleted.";
-            $response->song = $song_id;
-            return $this->json($response);
+
+            return $this->json([
+                'song' => $song_id,
+                'message' => "Song has been deleted.",
+            ]);
         }
     }
-
 
 
     /**
@@ -154,14 +153,11 @@ class SongsController extends Controller
 
             $song->update();
 
-            $response = new \stdClass();
 
-            $response->artist = $request->artist;
-            $response->track = $request->track;
-            $response->artist = $request->link;
-            $response->message = "Song has been updated.";
-
-            return $this->json($response);
+            return $this->json([
+                'song' => $song,
+                'message' => "Song has been updated.",
+            ]);
         }
     }
 

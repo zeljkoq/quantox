@@ -43,8 +43,8 @@ require APP . 'config/boot.php';
 
 
 // load application class
-require APP . 'Cores/Application.php';
-require APP . 'Cores/Controller.php';
+/*require APP . 'Cores/Application.php';
+require APP . 'Cores/Controller.php';*/
 
 // start the application
 

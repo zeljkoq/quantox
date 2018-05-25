@@ -13,7 +13,6 @@ use JeffOchoa\ValidatorFactory;
  * @package App\Controllers
  * @access public
  */
-
 class SongsController extends Controller
 {
 
@@ -23,17 +22,14 @@ class SongsController extends Controller
 
     public function index()
     {
-
         if (User::isLogged()) {
-
             $this->view('songs/index', [
-
+                'user_id' => User::getData()->id,
             ]);
 
         } else {
             redirect('login');
         }
-
     }
 
     /**
@@ -46,13 +42,11 @@ class SongsController extends Controller
     {
         $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
 
-        if ($this->isOwner(User::getData()->id, $song))
-        {
+        if ($this->isOwner(User::getData()->id, $song)) {
             $this->view('songs/edit', [
                 'song' => $song_id,
             ]);
         }
-
     }
 
     /**
@@ -115,49 +109,11 @@ class SongsController extends Controller
 //    }
 
 
-
     /**
      * Updating song through PHP form
      *
      * @param $song_id int Update song by id
      */
 
-//    public function updateSong($song_id)
-//    {
-//        $request = Request::capture();
-//
-//        $validator = new ValidatorFactory();
-//        $data = $request->only([
-//            'artist',
-//            'track',
-//            'link'
-//        ]);
-//        $rules = [
-//            'artist' => 'required',
-//            'track' => 'required',
-//            'link' => 'required',
-//        ];
-//        $result = $validator->make($data, $rules);
-//        $errors = $result->errors()->toArray();
-//
-//        if (empty($errors)) {
-//            $song = Song::findOrFail($song_id);
-//            if ($this->isOwner(User::getData()->id, $song)) {
-//                $song->artist = $request->artist;
-//                $song->track = $request->track;
-//                $song->link = $request->link;
-//
-//                $song->update();
-//
-//                redirect('songs');
-//            }
-//            else {
-//                echo 'Not allowed';
-//            }
-//
-//        } else {
-//            redirect('songs');
-//        }
-//    }
 
 }

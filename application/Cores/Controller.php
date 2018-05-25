@@ -5,33 +5,53 @@ namespace App\Cores;
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Blade\Blade;
 
-
+/**
+ * Class Controller
+ * @package App\Cores
+ */
 abstract class Controller
 {
 
-      public function __construct()
-      {
-          $this->blade = new Blade(ROOT . 'application/Views', ROOT . 'application/cache');
-      }
+    /**
+     * Controller constructor.
+     */
+    public function __construct()
+    {
+        $this->blade = new Blade(ROOT . 'application/Views', ROOT . 'application/cache');
+    }
 
-      public function view($view, $parameters = null){
-           if($parameters){
-               echo $this->blade->make($view, $parameters);
-           }else{
-               echo $this->blade->make($view);
-           }
-      }
-
-        public function isOwner($userId, Model $model)
-        {
-            return $model->user_id == $userId;
+    /**
+     * @param $view
+     * @param null $parameters
+     */
+    public function view($view, $parameters = null)
+    {
+        if ($parameters) {
+            echo $this->blade->make($view, $parameters);
+        } else {
+            echo $this->blade->make($view);
         }
+    }
 
-        public function json($data)
-        {
-            header('Content-Type: application/json');
-            return json_encode($data);
-        }
+    /**
+     * @param $userId
+     * @param Model $model
+     * @return bool
+     */
+    public function isOwner($userId, Model $model)
+    {
+        return $model->user_id == $userId;
+    }
 
+    /**
+     * @param $data
+     * @return string
+     */
+    public function json($data)
+    {
+        header('Content-Type: application/json');
+
+        return json_encode($data);
+    }
 
 }

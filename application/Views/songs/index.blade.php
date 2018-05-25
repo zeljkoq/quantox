@@ -62,7 +62,6 @@
 </div>
 
 
-
 @endsection
 
 @section('scripts')
@@ -70,7 +69,7 @@
         function getIndexData()
         {
             $.ajax({
-                url: '{{route('api.get.songs')}}',
+                url: "{{route('api.get.songs', ['user_id' => $user_id])}}",
                 contentType: "application/json",
                 success: function(data) {
                     var html = '';
