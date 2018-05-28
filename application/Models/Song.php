@@ -27,9 +27,12 @@ class Song extends Eloquent
 
     public $timestamps = [];
 
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
     }
+
+
 
 }

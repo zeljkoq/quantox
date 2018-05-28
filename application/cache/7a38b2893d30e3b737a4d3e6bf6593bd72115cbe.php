@@ -35,6 +35,7 @@
             <div class="card">
                 <div class="card-header">
                     Songs
+
                  </div>
                 <div class="card-body">
                     <div>
@@ -72,8 +73,9 @@
                 success: function(data) {
                     var html = '';
                     var htmlEmpty = '';
-                    var songs = JSON.parse(data);
-
+                    console.log(data);
+                    var songs = JSON.parse(data).model;
+                    console.log(songs);
                     // if (songs == '') {
                     //     htmlEmpty += '<tr>' +
                     //         '<td>You don\'t have any song</td>' +
@@ -83,15 +85,29 @@
                     // else
                     // {
                         for (i=0;i<songs.length;i++){
-                            html += '<tr>' +
-                                '<td hidden class="songId">'+songs[i].id+'</td>' +
-                                '<td id="art">'+songs[i].artist+'</td>' +
-                                '<td id="trck">'+songs[i].track+'</td>' +
-                                '<td id="lnk"><a id="atr" target="_blank" href="'+songs[i].link+'">'+songs[i].link+'</a></td>' +
+    // console.log(songs[i]);
                                 // '<td><button id="editSong" type="button" class="btn btn-light"><i class="fas fa-edit"></i></button></td>' +
-                                '<td><a href="/edit/'+songs[i].id+'" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
-                                '<td><button id="deleteSong" type="button" class="btn btn-light"><i class="fas fa-trash-alt"></i></i></button></td>' +
-                                '</tr>';
+                                if(songs[i].admin === '1')
+                                {
+                                    html += '<tr>' +
+                                        '<td hidden class="songId">'+songs[i].id+'</td>' +
+                                        '<td id="art">'+songs[i].artist+'</td>' +
+                                        '<td id="trck">'+songs[i].track+'</td>' +
+                                        '<td id="lnk"><a id="atr" target="_blank" href="'+songs[i].link+'">'+songs[i].link+'</a></td>' +
+                                        '<td><a href="/edit/'+songs[i].id+'" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
+                                        '<td><button id="deleteSong" type="button" class="btn btn-light"><i class="fas fa-trash-alt"></i></i></button></td>' +
+                                        '</tr>';
+                                }
+                                else
+                                {
+                                    html += '<tr>' +
+                                        '<td hidden class="songId">'+songs[i].id+'</td>' +
+                                        '<td id="art">'+songs[i].artist+'</td>' +
+                                        '<td id="trck">'+songs[i].track+'</td>' +
+                                        '<td id="lnk"><a id="atr" target="_blank" href="'+songs[i].link+'">'+songs[i].link+'</a></td>' +
+                                        '</tr>';
+                                }
+
                         }
                         $('#songsList').html(html);
                     // }
@@ -128,7 +144,7 @@
                         '<td id="trck">'+response.song.track+'</td>' +
                         '<td id="lnk"><a id="atr" target="_blank" href="'+response.song.link+'">'+response.song.link+'</a></td>' +
                         // '<td><button id="editSong" type="button" class="btn btn-light"><i class="fas fa-edit"></i></button></td>' +
-                        '<td><a href="/edit/'+response.song.id+'" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
+                        '<td><a href="'+response.song.editlink+'" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
                         '<td><button id="deleteSong" type="button" class="btn btn-light"><i class="fas fa-trash-alt"></i></i></button></td>' +
                         '</tr>';
 

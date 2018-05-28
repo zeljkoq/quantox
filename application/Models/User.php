@@ -52,4 +52,18 @@ class User extends Eloquent
         return $this->hasMany('App\Models\Song');
     }
 
+    public static function isAdmin()
+    {
+        $user = User::where('id', User::getData()->id)->first();
+
+        if ($user->admin)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

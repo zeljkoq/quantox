@@ -2,6 +2,7 @@
 
 namespace App\Cores;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Blade\Blade;
 
@@ -52,6 +53,14 @@ abstract class Controller
         header('Content-Type: application/json');
 
         return json_encode($data);
+    }
+
+    public function response()
+    {
+        $response = $this->item = new Response();
+        $response = $this->collection = new Response();
+        $response = $this->error = new Response();
+        return $response;
     }
 
 }

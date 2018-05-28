@@ -11,6 +11,8 @@ namespace App\Controllers\Api;
 use App\Models\User;
 use App\Cores\Controller;
 use App\Models\Song;
+use App\Transformers\AdminTransformer;
+use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use JeffOchoa\ValidatorFactory;
 
@@ -31,15 +33,34 @@ class SongsController extends Controller
 
     public function getData($user_id)
     {
-        if (User::isLogged()) {
-            $user = User::find(User::getData()->id);
-            $user = $user->songs()->first();
 
-            $songs = Song::where('user_id', $user->user_id)->orderBy('id', 'desc')->get();
-        } else {
-            $songs = Song::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+        if(User::isLogged())
+        {
+            if (User::isAdmin())
+            {
+                $user = User::find(User::getData()->id);
+                $user = $user->songs()->first();
+
+                $songs = Song::where('user_id', $user->user_id)->orderBy('id', 'desc')->get();
+
+                return $this->response()->collection($songs, new AdminTransformer());
+            }
+            else
+            {
+                $user = User::find(User::getData()->id);
+                $user = $user->songs()->first();
+
+                $songs = Song::where('user_id', $user->user_id)->orderBy('id', 'desc')->get();
+
+                return $this->response()->collection($songs, new UserTransformer());
+            }
         }
-        return $this->json($songs);
+        else
+        {
+            $songs = Song::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+            return $this->response()->collection($songs, new UserTransformer());
+        }
+
     }
 
     /**
@@ -115,7 +136,7 @@ class SongsController extends Controller
     {
         $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
 
-        return $this->json($song);
+        return $this->response()->item($song, new UserTransformer());
     }
 
 
@@ -153,11 +174,11 @@ class SongsController extends Controller
 
             $song->update();
 
-
-            return $this->json([
-                'song' => $song,
-                'message' => "Song has been updated.",
-            ]);
+            return $this->response()->item($song, new AdminTransformer());
+//            return $this->json([
+//                'song' => $song,
+//                'message' => "Song has been updated.",
+//            ]);
         }
     }
 

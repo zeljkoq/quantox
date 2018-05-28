@@ -6,6 +6,7 @@
         <div class="card">
             <div class="card-header">
                 Edit song
+                <small class="float-right"><i class="fas fa-arrow-circle-left fa-2x"></i></small>
             </div>
             <div class="card-body">
                 <div class="form-group">
@@ -40,7 +41,8 @@
                 url: '<?php echo e(route('api.edit.song.data', ['song_id' => $song])); ?>',
                 contentType: "application/json",
                 success: function(data) {
-                    data = JSON.parse(data);
+                    console.log(data);
+                    data = JSON.parse(data).model;
                     $('#artist').val(data.artist);
                     $('#track').val(data.track);
                     $('#link').val(data.link);
