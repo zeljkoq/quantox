@@ -136,18 +136,16 @@
                     $('#track').val('');
                     $('#link').val('');
                     html = '';
-
-                    response = JSON.parse(response);
+                    // console.log(response);
+                    response = JSON.parse(response).model;
                     setMessage('success', response);
                     console.log(response);
                     html += '<tr>' +
-                        '<td hidden class="songId">'+response.song.id+'</td>' +
-                        '<td id="art">'+response.song.artist+'</td>' +
-                        '<td id="trck">'+response.song.track+'</td>' +
-                        '<td id="lnk"><a id="atr" target="_blank" href="'+response.song.link+'">'+response.song.link+'</a></td>' +
+                        '<td hidden class="songId">'+response.id+'</td>' +
+                        '<td id="art">'+response.artist+'</td>' +
+                        '<td id="trck">'+response.track+'</td>' +
+                        '<td id="lnk"><a id="atr" target="_blank" href="'+response.link+'">'+response.link+'</a></td>' +
                         // '<td><button id="editSong" type="button" class="btn btn-light"><i class="fas fa-edit"></i></button></td>' +
-                        '<td><a href="'+response.song.editlink+'" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
-                        '<td><button id="deleteSong" type="button" class="btn btn-light"><i class="fas fa-trash-alt"></i></i></button></td>' +
                         '</tr>';
 
                     $('#songsList').prepend(html);

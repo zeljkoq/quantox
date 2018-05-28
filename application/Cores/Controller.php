@@ -19,7 +19,10 @@ abstract class Controller
     public function __construct()
     {
         $this->blade = new Blade(ROOT . 'application/Views', ROOT . 'application/cache');
+        $this->response = new Response();
     }
+
+
 
     /**
      * @param $view
@@ -55,12 +58,5 @@ abstract class Controller
         return json_encode($data);
     }
 
-    public function response()
-    {
-        $response = $this->item = new Response();
-        $response = $this->collection = new Response();
-        $response = $this->error = new Response();
-        return $response;
-    }
 
 }

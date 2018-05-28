@@ -43,7 +43,7 @@ class SongsController extends Controller
 
                 $songs = Song::where('user_id', $user->user_id)->orderBy('id', 'desc')->get();
 
-                return $this->response()->collection($songs, new AdminTransformer());
+                return $this->response->collection($songs, new AdminTransformer());
             }
             else
             {
@@ -52,13 +52,13 @@ class SongsController extends Controller
 
                 $songs = Song::where('user_id', $user->user_id)->orderBy('id', 'desc')->get();
 
-                return $this->response()->collection($songs, new UserTransformer());
+                return $this->response->collection($songs, new UserTransformer());
             }
         }
         else
         {
             $songs = Song::where('user_id', $user_id)->orderBy('id', 'desc')->get();
-            return $this->response()->collection($songs, new UserTransformer());
+            return $this->response->collection($songs, new UserTransformer());
         }
 
     }
@@ -95,10 +95,12 @@ class SongsController extends Controller
 
             $song->save();
 
-            return $this->json([
-                'song' => $song,
-                'message' => 'Song added successfully',
-            ]);
+            return $this->response->item($song, new UserTransformer());
+
+//            return $this->json([
+//                'song' => $song,
+//                'message' => 'Song added successfully',
+//            ]);
         }
     }
 
