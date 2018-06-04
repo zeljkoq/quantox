@@ -44,8 +44,9 @@
                 url: '{{ route('api.edit.song.data', ['song_id' => $song]) }}',
                 contentType: "application/json",
                 success: function(data) {
-                    console.log(data);
+                    // // console.log(data);
                     data = JSON.parse(data).model;
+                    // console.log(data);
                     $('#artist').val(data.artist);
                     $('#track').val(data.track);
                     $('#link').val(data.link);
@@ -66,7 +67,10 @@
                 url: '{{route('api.update.song', ['song_id' => $song])}}',
                 data: ({artist: artist, track: track, link: link}),
                 success: function(response) {
+                    // console.log(response);
                     response = JSON.parse(response);
+                    console.log(response);
+
                     setMessage('success', response);
                 }
             });

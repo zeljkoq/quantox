@@ -73,9 +73,9 @@
                 contentType: "application/json",
                 success: function (data) {
                     var html = '';
-                    console.log(data);
+                    // console.log(data);
                     var songs = JSON.parse(data).model;
-                    console.log(songs);
+                    // console.log(songs);
                     for (i = 0; i < songs.length; i++) {
                         if (songs[i].admin === '1') {
                             html += '<tr>' +
@@ -109,6 +109,7 @@
             var artist = $('#artist').val();
             var track = $('#track').val();
             var link = $('#link').val();
+
             $.ajax({
                 type: "post",
                 url: '{{route('create')}}',
@@ -117,20 +118,19 @@
                     $('#artist').val('');
                     $('#track').val('');
                     $('#link').val('');
+                    
                     html = '';
-                    // console.log(response);
-                    response = JSON.parse(response).model;
-                    setMessage('success', response);
-                    console.log(response);
+                    response = JSON.parse(response);
                     html += '<tr>' +
-                        '<td hidden class="songId">' + response.id + '</td>' +
-                        '<td id="art">' + response.artist + '</td>' +
-                        '<td id="trck">' + response.track + '</td>' +
-                        '<td id="lnk"><a id="atr" target="_blank" href="' + response.link + '">' + response.link + '</a></td>' +
+                        '<td hidden class="songId">' + response.model.id + '</td>' +
+                        '<td id="art">' + response.model.artist + '</td>' +
+                        '<td id="trck">' + response.model.track + '</td>' +
+                        '<td id="lnk"><a id="atr" target="_blank" href="' + response.model.link + '">' + response.model.link + '</a></td>' +
                         // '<td><button id="editSong" type="button" class="btn btn-light"><i class="fas fa-edit"></i></button></td>' +
                         '</tr>';
 
                     $('#songsList').prepend(html);
+                    setMessage('success', response);
                 }
             });
         });

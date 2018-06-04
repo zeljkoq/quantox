@@ -13,20 +13,21 @@ class Response
         return json_encode($data);
     }
 
-    public function item($model, $transformer){
+    public function item($model, $transformer, $message = null){
         return $this->response([
             'model' => $transformer->transform($model),
-
+            'message' => $message,
         ]);
     }
 
-    public function collection($collection, $transformer){
+    public function collection($collection, $transformer, $message = null){
         $collect = [];
         foreach ($collection as $key=>$model){
             $collect += [$key => $transformer->transform($model)];
         }
         return $this->response([
             'model' => $collect,
+            'message' => $message,
         ]);
     }
 }

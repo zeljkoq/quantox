@@ -12,7 +12,7 @@ class UserTransformer extends Transformer
             'artist' => $model->artist,
             'track' => $model->track,
             'link' => $model->link,
-            'admin' => '0'
+            'admin' => '0',
         ];
     }
 }

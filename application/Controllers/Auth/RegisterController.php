@@ -8,7 +8,7 @@
 namespace App\Controllers\Auth;
 
 use App\Cores\Controller;
-use App\Cores\Views;
+
 use Illuminate\Http\Request;
 use JeffOchoa\ValidatorFactory;
 use App\Models\User;
@@ -22,6 +22,7 @@ class RegisterController extends Controller
     public function register()
     {
         $request = Request::capture();
+
 
 
         $validator = new ValidatorFactory();
@@ -50,14 +51,17 @@ class RegisterController extends Controller
             ];
 
 
+
             $user = User::where('email', $request->email)->first();
 
             if (empty($user))
             {
                 if ($request->password == $request->confirm_password)
                 {
+
                     User::create($params);
                     redirect('songs');
+
                 }
             }
             else

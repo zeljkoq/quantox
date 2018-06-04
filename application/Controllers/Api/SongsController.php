@@ -95,12 +95,8 @@ class SongsController extends Controller
 
             $song->save();
 
-            return $this->response->item($song, new UserTransformer());
+            return $this->response->item($song, new AdminTransformer(), 'Song has been added successfully.');
 
-//            return $this->json([
-//                'song' => $song,
-//                'message' => 'Song added successfully',
-//            ]);
         }
     }
 
@@ -138,7 +134,7 @@ class SongsController extends Controller
     {
         $song = Song::where('user_id', User::getData()->id)->where('id', $song_id)->first();
 
-        return $this->response()->item($song, new UserTransformer());
+        return $this->response->item($song, new UserTransformer());
     }
 
 
@@ -176,11 +172,7 @@ class SongsController extends Controller
 
             $song->update();
 
-            return $this->response()->item($song, new AdminTransformer());
-//            return $this->json([
-//                'song' => $song,
-//                'message' => "Song has been updated.",
-//            ]);
+            return $this->response->item($song, new AdminTransformer(), 'Song has been updated');
         }
     }
 

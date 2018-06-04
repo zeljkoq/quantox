@@ -22,7 +22,7 @@
     <script>
         $('#songsListAdd').click(function() {
             // var artist = $('#artist').val();
-            // var track = $('#track').val();
+            // var track = $('#track').va();
             // var link = $('#link').val();
             $.ajax({
                 type: "post",

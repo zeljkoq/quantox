@@ -17,7 +17,6 @@ class User extends Eloquent
         'email',
         'name',
         'password',
-        'remember_me',
     ];
 
     protected $table = 'users';

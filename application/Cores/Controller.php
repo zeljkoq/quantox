@@ -4,6 +4,7 @@ namespace App\Cores;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\UrlGenerator;
 use Jenssegers\Blade\Blade;
 
 /**
@@ -16,10 +17,12 @@ abstract class Controller
     /**
      * Controller constructor.
      */
-    public function __construct()
+    public function __construct(UrlGenerator $generator)
     {
-        $this->blade = new Blade(ROOT . 'application/Views', ROOT . 'application/cache');
+        $this->blade = new Blade(ROOT . 'resources/Views', ROOT . 'configuration/cache');
         $this->response = new Response();
+        $this->generator = $generator;
+//        dd($this->generator->to());
     }
 
 
@@ -57,6 +60,16 @@ abstract class Controller
 
         return json_encode($data);
     }
+
+    public function to($path, $status = 302, $headers = [], $secure = null)
+    {
+        return $this->createRedirect($this->generator->to($path, [], $secure), $status, $headers);
+    }
+    public function getUrlGenerator()
+    {
+        return $this->generator;
+    }
+
 
 
 }

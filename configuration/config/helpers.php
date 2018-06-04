@@ -10,17 +10,17 @@
  * @param $name string Redirection route
  * @access private
  */
+
 function redirect($name)
 {
+
     if ($name == null)
     {
-        echo "<script type='text/javascript'> document.location = '". URL . "'; </script>";
+        header("Location: " . route(''));
+        exit();
     }
-    else
-    {
-        echo "<script type='text/javascript'> document.location = '". URL . $name . "'; </script>";
-    }
-
+    header("Location: ". route($name));
+    exit();
 }
 
 /**
