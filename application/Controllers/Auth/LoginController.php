@@ -60,18 +60,10 @@ class LoginController extends Controller
                      $_SESSION['user_email'] = $request->email;
                      redirect('songs');
                  }
-                 else
-                 {
-                     $_SESSION['user'] = false;
-                     redirect('');
-                 }
-             }
-             else
-             {
+                 $_SESSION['user'] = false;
                  redirect('');
              }
-
-        } else {
+            redirect('');
 
         }
     }

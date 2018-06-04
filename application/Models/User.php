@@ -74,10 +74,7 @@ class User extends Eloquent
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
 }

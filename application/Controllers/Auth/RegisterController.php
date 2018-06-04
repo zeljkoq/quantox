@@ -70,10 +70,9 @@ class RegisterController extends Controller
                     redirect('songs');
 
                 }
-            } else {
-                redirect('register');
+                redirect('login');
             }
-
+            redirect('register');
         }
     }
 }
