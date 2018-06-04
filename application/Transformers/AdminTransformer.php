@@ -3,9 +3,10 @@
 namespace App\Transformers;
 
 
+use App\Cores\Fractals\TransformerInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class AdminTransformer extends Transformer
+class AdminTransformer implements TransformerInterface
 {
     public function transform(Model $model){
         return [

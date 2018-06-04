@@ -95,7 +95,7 @@ class SongsController extends Controller
 
             $song->save();
 
-            return $this->response->item($song, new AdminTransformer(), 'Song has been added successfully.');
+            return $this->response->item($song, new UserTransformer(), 'Song has been added successfully.');
 
         }
     }

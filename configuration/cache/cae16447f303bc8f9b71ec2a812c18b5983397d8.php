@@ -119,13 +119,26 @@
                     
                     html = '';
                     response = JSON.parse(response);
-                    html += '<tr>' +
-                        '<td hidden class="songId">' + response.model.id + '</td>' +
-                        '<td id="art">' + response.model.artist + '</td>' +
-                        '<td id="trck">' + response.model.track + '</td>' +
-                        '<td id="lnk"><a id="atr" target="_blank" href="' + response.model.link + '">' + response.model.link + '</a></td>' +
-                        // '<td><button id="editSong" type="button" class="btn btn-light"><i class="fas fa-edit"></i></button></td>' +
-                        '</tr>';
+                    if (response.model.admin === '1')
+                    {
+                        html += '<tr>' +
+                            '<td hidden class="songId">' + response.model.id + '</td>' +
+                            '<td id="art">' + response.model.artist + '</td>' +
+                            '<td id="trck">' + response.model.track + '</td>' +
+                            '<td id="lnk"><a id="atr" target="_blank" href="' + response.model.link + '">' + response.model.link + '</a></td>' +
+                            '<td><a href="/edit/' + response.model.id + '" class="btn btn-light"><i class="fas fa-edit"></i></a></td>' +
+                            '<td><button id="deleteSong" type="button" class="btn btn-light"><i class="fas fa-trash-alt"></i></i></button></td>' +
+                            '</tr>';
+                    }
+                    else
+                    {
+                        html += '<tr>' +
+                            '<td hidden class="songId">' + response.model.id + '</td>' +
+                            '<td id="art">' + response.model.artist + '</td>' +
+                            '<td id="trck">' + response.model.track + '</td>' +
+                            '<td id="lnk"><a id="atr" target="_blank" href="' + response.model.link + '">' + response.model.link + '</a></td>' +
+                            '</tr>';
+                    }
 
                     $('#songsList').prepend(html);
                     setMessage('success', response);

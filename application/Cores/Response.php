@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Cores;
-use App\Transformers\Transform;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 

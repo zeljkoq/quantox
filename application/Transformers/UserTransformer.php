@@ -2,9 +2,10 @@
 
 namespace App\Transformers;
 
+use App\Cores\Fractals\TransformerInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class UserTransformer extends Transformer
+class UserTransformer implements TransformerInterface
 {
     public function transform(Model $model){
         return [
