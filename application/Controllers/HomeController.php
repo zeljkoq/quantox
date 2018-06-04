@@ -14,6 +14,9 @@ use App\Cores\Controller;
 class HomeController extends Controller
 {
 
+    /**
+     * Return index template for home
+     */
     public function index()
     {
         $this->view('home/index');

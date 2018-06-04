@@ -34,19 +34,15 @@ class SongsController extends Controller
     public function getData($user_id)
     {
 
-        if(User::isLogged())
-        {
-            if (User::isAdmin())
-            {
+        if (User::isLogged()) {
+            if (User::isAdmin()) {
                 $user = User::find(User::getData()->id);
                 $user = $user->songs()->first();
 
                 $songs = Song::where('user_id', $user->user_id)->orderBy('id', 'desc')->get();
 
                 return $this->response->collection($songs, new AdminTransformer());
-            }
-            else
-            {
+            } else {
                 $user = User::find(User::getData()->id);
                 $user = $user->songs()->first();
 
@@ -54,9 +50,7 @@ class SongsController extends Controller
 
                 return $this->response->collection($songs, new UserTransformer());
             }
-        }
-        else
-        {
+        } else {
             $songs = Song::where('user_id', $user_id)->orderBy('id', 'desc')->get();
             return $this->response->collection($songs, new UserTransformer());
         }
@@ -171,7 +165,6 @@ class SongsController extends Controller
             $song->link = $request->link;
 
             $song->update();
-
             return $this->response->item($song, new AdminTransformer(), 'Song has been updated');
         }
     }

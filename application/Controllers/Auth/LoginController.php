@@ -13,13 +13,24 @@ use Illuminate\Http\Request;
 use JeffOchoa\ValidatorFactory;
 use App\Models\User;
 
+/**
+ * Class LoginController
+ * @package App\Controllers\Auth
+ */
 class LoginController extends Controller
 {
+    /**
+     * Return index with login template
+     */
     public function index()
     {
         $this->view('auth/login');
     }
 
+    /**
+     * Login user
+     * @return true false if user is logged in
+     */
     public function login()
     {
         $request = Request::capture();
@@ -65,6 +76,9 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * Logout user
+     */
     public function logout()
     {
         unset($_SESSION['user']);

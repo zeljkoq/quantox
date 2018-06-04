@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App\Models
  * @access public
  */
-
 class Song extends Eloquent
 {
-
-
+    /**
+     * @var array
+     */
     protected $fillable = [
         'track',
         'artist',
@@ -23,16 +23,22 @@ class Song extends Eloquent
         'user_id'
     ];
 
+    /**
+     * @var string
+     */
     protected $table = 'songs';
 
+    /**
+     * @var array
+     */
     public $timestamps = [];
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\Models\User');
     }
-
-
-
 }

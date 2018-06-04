@@ -13,14 +13,23 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class User extends Eloquent
 {
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'email',
         'name',
         'password',
     ];
 
+    /**
+     * @var string
+     */
     protected $table = 'users';
 
+    /**
+     * @var array
+     */
     public $timestamps = [];
 
     /**
@@ -46,11 +55,17 @@ class User extends Eloquent
         return $user = User::where('email', $_SESSION['user_email'])->first();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function songs()
     {
         return $this->hasMany('App\Models\Song');
     }
 
+    /**
+     * @return bool
+     */
     public static function isAdmin()
     {
         $user = User::where('id', User::getData()->id)->first();

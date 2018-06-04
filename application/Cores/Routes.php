@@ -13,25 +13,29 @@ use Illuminate\Routing\Router;
 use Illuminate\Http\Request;
 
 
+/**
+ * Class Routes
+ * @package App\Cores
+ */
 class Routes
 {
 
+    /**
+     * @var
+     */
     static $routesArr;
 
+    /**
+     * Return routes
+     */
     public static function makeRoutes()
     {
-        try{
+        try {
 
             $dispatcher = new Dispatcher();
             $router = new Router($dispatcher);
 
-
             $router->get('/songs', 'App\Controllers\SongsController@index')->name('songs');
-//            $router->get('getData', 'App\Controllers\SongsController@getData')->name('getData');
-//            $router->post('/songs/addsong', 'App\Controllers\SongsController@addSong')->name('addsong');
-//            $router->get('editsong/{song_id}', 'App\Controllers\SongsController@editSongIndex')->name('edit.song');
-//            $router->post('updatesong/{song_id}', 'App\Controllers\SongsController@updateSong')->name('update.song');
-//            $router->get('/deletesong/{song_id}', 'App\Controllers\SongsController@deleteSong')->name('delete.song');
             $router->get('/edit/{song_id}', 'App\Controllers\SongsController@editSongIndex')->name('edit.song');
             $router->get('songs/ajaxGetStats', 'App\Controllers\SongsController@ajaxGetStats')->name('ajaxget');
             $router->get('login', 'App\Controllers\Auth\LoginController@index')->name('login');
@@ -45,9 +49,12 @@ class Routes
 
             $router->get('/api/get/{user_id}', 'App\Controllers\Api\SongsController@getData')->name('api.get.songs');
             $router->post('/api/create', 'App\Controllers\Api\SongsController@addSong')->name('create');
-            $router->get('/api/songdata/{song_id}', 'App\Controllers\Api\SongsController@getEachSongData')->name('api.edit.song.data');
-            $router->post('/api/update/{song_id}', 'App\Controllers\Api\SongsController@updateSong')->name('api.update.song');
-            $router->get('/api/delete/{song_id}', 'App\Controllers\Api\SongsController@deleteSong')->name('api.delete.song');
+            $router->get('/api/songdata/{song_id}',
+                'App\Controllers\Api\SongsController@getEachSongData')->name('api.edit.song.data');
+            $router->post('/api/update/{song_id}',
+                'App\Controllers\Api\SongsController@updateSong')->name('api.update.song');
+            $router->get('/api/delete/{song_id}',
+                'App\Controllers\Api\SongsController@deleteSong')->name('api.delete.song');
 
 
             /*
@@ -59,7 +66,8 @@ class Routes
              *  Functions routes
              */
 
-            $router->get('destroyMessage', 'App\Controllers\FunctionsController@destroyMessage')->name('destroy.message');
+            $router->get('destroyMessage',
+                'App\Controllers\FunctionsController@destroyMessage')->name('destroy.message');
 
             /*
              * End functions
@@ -87,8 +95,7 @@ class Routes
             $response->send();
 
 
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             if (strpos($e, 'NotFoundHttpException')) {
                 redirect('404');
             }
@@ -96,11 +103,13 @@ class Routes
         }
     }
 
-    public static function getRoutes(){
+    /**
+     * @return mixed
+     */
+    public static function getRoutes()
+    {
         return self::$routesArr;
     }
-
-
 
 
 }
