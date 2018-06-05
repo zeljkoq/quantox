@@ -72,13 +72,13 @@ class Routes
             /*
              * End functions
              */
-            $router->get('/', 'App\Controllers\HomeController@index');
+            $router->get('/', 'App\Controllers\HomeController@index')->name('index');
 
-            $router->get('register', 'App\Controllers\Auth\RegisterController@index');
-            $router->get('userlogin', 'App\Controllers\Auth\LoginController@login');
-            $router->post('userregister', 'App\Controllers\Auth\RegisterController@register');
+            $router->get('register', 'App\Controllers\Auth\RegisterController@index')->name('register');
+            $router->get('userlogin', 'App\Controllers\Auth\LoginController@login')->name('login');
+            $router->post('userregister', 'App\Controllers\Auth\RegisterController@register')->name('action.register');
 
-            $router->get('404', 'App\Controllers\ExceptionsController@notFound');
+            $router->get('404', 'App\Controllers\ExceptionsController@notFound')->name('not.found');
 
             $routes = $router->getRoutes();
 
@@ -96,8 +96,9 @@ class Routes
 
 
         } catch (\Exception $e) {
+//            var_dump($e);
             if (strpos($e, 'NotFoundHttpException')) {
-                redirect('404');
+                redirect('not.found');
             }
 //            print_r($e->getMessage());
         }
