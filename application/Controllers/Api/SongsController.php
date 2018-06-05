@@ -11,6 +11,7 @@ namespace App\Controllers\Api;
 use App\Models\User;
 use App\Cores\Controller;
 use App\Models\Song;
+use App\Requests\StoreSongRequest\StoreSongRequest;
 use App\Transformers\AdminTransformer;
 use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
@@ -64,20 +65,27 @@ class SongsController extends Controller
 
     public function addSong()
     {
+
+
+
+//        dd($request);
+
         $request = Request::capture();
-        $validator = new ValidatorFactory();
-        $data = $request->only([
-            'artist',
-            'track',
-            'link'
-        ]);
-        $rules = [
-            'artist' => 'required',
-            'track' => 'required',
-            'link' => 'required',
-        ];
-        $result = $validator->make($data, $rules);
-        $errors = $result->errors()->toArray();
+        $test = new StoreSongRequest();
+
+//        $validator = new ValidatorFactory();
+//        $data = $request->only([
+//            'artist',
+//            'track',
+//            'link'
+//        ]);
+//        $rules = [
+//            'artist' => 'required',
+//            'track' => 'required',
+//            'link' => 'required',
+//        ];
+//        $result = $validator->make($data, $rules);
+//        $errors = $result->errors()->toArray();
 
         if (empty($errors)) {
             $song = new Song();

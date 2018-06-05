@@ -12,6 +12,7 @@ use App\Cores\Views;
 use Illuminate\Http\Request;
 use JeffOchoa\ValidatorFactory;
 use App\Models\User;
+use App\Requests\CreateSongRequest\CreateSongRequest;
 
 /**
  * Class LoginController

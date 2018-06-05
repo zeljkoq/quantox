@@ -118,9 +118,10 @@
                     $('#artist').val('');
                     $('#track').val('');
                     $('#link').val('');
-                    
+                    // console.log(response);
                     html = '';
                     response = JSON.parse(response);
+
                     if (response.model.admin === '1')
                     {
                         html += '<tr>' +
