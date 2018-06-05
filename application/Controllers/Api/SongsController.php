@@ -27,7 +27,7 @@ class SongsController extends Controller
     /**
      * Get json data for all songs
      *
-     * @param $user_id int Return data for user
+     * @param int $user_id Return data by user id
      * @return string Return json data for all songs
      * @access public
      */
@@ -105,8 +105,8 @@ class SongsController extends Controller
     /**
      * If user is owner of song it will be deleted
      *
-     * @param $song_id int
-     * @return string json data
+     * @param int $song_id Return song data by song id
+     * @return string Return json data
      *
      */
 
@@ -128,7 +128,7 @@ class SongsController extends Controller
     /**
      * Return song json data by song id
      *
-     * @param $song_id int Each song data
+     * @param int $song_id Each song data
      * @return string Return json values
      */
 
@@ -143,8 +143,8 @@ class SongsController extends Controller
     /**
      * Updating song through API
      *
-     * @param $song_id int Update song by id in API
-     * @return string json data
+     * @param int $song_id Update song by id in API
+     * @return string Return json data
      */
 
     public function updateSong($song_id)

@@ -38,7 +38,7 @@ abstract class Controller
     }
 
     /**
-     * @param $userId
+     * @param int $userId
      * @param Model $model
      * @return bool
      */
@@ -49,7 +49,7 @@ abstract class Controller
 
     /**
      * @param $data
-     * @return string
+     * @return string Return JSON data
      */
     public function json($data)
     {

@@ -17,7 +17,8 @@ class SongsController extends Controller
 {
 
     /**
-     * Render main index view for all songs
+     * If user is logged in return index page with songs,
+     * else redirect to login
      */
 
     public function index()

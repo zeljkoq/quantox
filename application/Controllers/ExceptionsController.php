@@ -14,9 +14,16 @@ namespace App\Controllers;
  * @access public
  */
 
+/**
+ * Class ExceptionsController
+ * @package App\Controllers
+ */
 class ExceptionsController
 {
-    public function notFound()
+	/**
+	 * @return string
+	 */
+	public function notFound()
     {
         return '404 not found';
     }
