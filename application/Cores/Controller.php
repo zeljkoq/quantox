@@ -18,7 +18,7 @@ abstract class Controller
      */
     public function __construct()
     {
-        $this->blade = new Blade(ROOT . 'resources/Views', ROOT . 'configuration/cache');
+        $this->blade = new Blade(ROOT . 'resources/Views', ROOT . 'cache');
         $this->response = new Response();
     }
 
