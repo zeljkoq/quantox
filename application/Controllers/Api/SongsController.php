@@ -24,14 +24,11 @@ use JeffOchoa\ValidatorFactory;
  */
 class SongsController extends Controller
 {
-    /**
-     * Get json data for all songs
-     *
-     * @param int $user_id Return data by user id
-     * @return string Return json data for all songs
-     * @access public
-     */
 
+    /**
+     * @param int $user_id
+     * @return string
+     */
     public function getData($user_id)
     {
 

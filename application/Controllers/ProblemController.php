@@ -13,6 +13,10 @@ namespace App\Controllers;
  * This is really weird behaviour, but documented here: http://php.net/manual/en/language.oop5.decon.php
  *
  */
+/**
+ * Class ProblemController
+ * @package App\Controllers
+ */
 class ProblemController
 {
     /**

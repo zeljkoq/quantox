@@ -11,10 +11,17 @@ namespace App\Requests\StoreSongRequest;
 use App\Cores\FormRequest\FormRequest;
 use Illuminate\Http\Request;
 
+/**
+ * Class StoreSongRequest
+ * @package App\Requests\StoreSongRequest
+ */
 class StoreSongRequest
 {
     use FormRequest;
 
+    /**
+     *
+     */
     public function validate()
     {
 

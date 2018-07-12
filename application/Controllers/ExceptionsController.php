@@ -11,12 +11,6 @@ namespace App\Controllers;
 /**
  * Class ExceptionsController
  * @package App\Controllers
- * @access public
- */
-
-/**
- * Class ExceptionsController
- * @package App\Controllers
  */
 class ExceptionsController
 {

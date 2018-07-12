@@ -14,12 +14,11 @@
 function redirect($name)
 {
 
-    if ($name == null)
-    {
+    if ($name == null) {
         header("Location: " . route(''));
         exit();
     }
-    header("Location: ". route($name));
+    header("Location: " . route($name));
     exit();
 }
 
@@ -30,21 +29,22 @@ function redirect($name)
  * @access private
  */
 
-function route($name, $parameters = null){
+function route($name, $parameters = null)
+{
     $routes = App\Cores\Routes::getRoutes();
 
-    foreach ($routes as $as=>$url){
-        if($as == $name){
+    foreach ($routes as $as => $url) {
+        if ($as == $name) {
 
-            if($parameters){
-                foreach ($parameters as $key=>$param){
-                    $url = str_replace('{'. $key. '}', $param, $url);
+            if ($parameters) {
+                foreach ($parameters as $key => $param) {
+                    $url = str_replace('{' . $key . '}', $param, $url);
                 }
             }
-            if(strpos($url, '{') !== false){
+            if (strpos($url, '{') !== false) {
                 return route('');
             }
-            return URL. $url;
+            return URL . $url;
         }
     }
 }
