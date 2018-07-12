@@ -40,18 +40,18 @@ class SongsController extends Controller
                 $songs = Song::where('user_id', $user->user_id)->orderBy('id', 'desc')->get();
 
                 return $this->response->collection($songs, new AdminTransformer());
-            } else {
-                $user = User::find(User::getData()->id);
-                $user = $user->songs()->first();
-
-                $songs = Song::where('user_id', $user->user_id)->orderBy('id', 'desc')->get();
-
-                return $this->response->collection($songs, new UserTransformer());
             }
-        } else {
-            $songs = Song::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+            $user = User::find(User::getData()->id);
+            $user = $user->songs()->first();
+
+            $songs = Song::where('user_id', $user->user_id)->orderBy('id', 'desc')->get();
+
             return $this->response->collection($songs, new UserTransformer());
+
         }
+        $songs = Song::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+        return $this->response->collection($songs, new UserTransformer());
+
 
     }
 

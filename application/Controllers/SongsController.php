@@ -29,9 +29,9 @@ class SongsController extends Controller
                 'user_id' => User::getData()->id,
             ]);
 
-        } else {
-            redirect('login');
         }
+        redirect('login');
+
     }
 
     /**

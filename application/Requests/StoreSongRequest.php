@@ -39,7 +39,5 @@ class StoreSongRequest
                 'link'   => 'required',
 
             ]);
-
-        var_dump($request);
     }
 }
