@@ -23,7 +23,6 @@ abstract class Controller
     }
 
 
-
     /**
      * @param $view
      * @param null $parameters

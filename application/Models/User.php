@@ -70,8 +70,7 @@ class User extends Eloquent
     {
         $user = User::where('id', User::getData()->id)->first();
 
-        if ($user->admin)
-        {
+        if ($user->admin) {
             return true;
         }
         return false;

@@ -10,10 +10,8 @@ use App\Cores\Controller;
  * @package App\Controllers
  * @access public
  */
-
 class HomeController extends Controller
 {
-
     /**
      * Return index template for home
      */

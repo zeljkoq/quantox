@@ -24,12 +24,12 @@ class Routes
      * @var
      */
     static $routesArr;
-	
-	
-	/**
-	 * Return routes
-	 */
-	public static function makeRoutes()
+
+
+    /**
+     * Return routes
+     */
+    public static function makeRoutes()
     {
         try {
 
@@ -42,7 +42,7 @@ class Routes
             $router->get('login', 'App\Controllers\Auth\LoginController@index')->name('login');
             $router->get('logout', 'App\Controllers\Auth\LoginController@logout')->name('logout');
             $router->get('test', 'App\Controllers\SongsController@test')->name('test');
-            
+
 
             $router->get('/api/get/{user_id}', 'App\Controllers\Api\SongsController@getData')->name('api.get.songs');
             $router->post('/api/create', 'App\Controllers\Api\SongsController@addSong')->name('create');
@@ -57,7 +57,7 @@ class Routes
             $router->get('destroyMessage',
                 'App\Controllers\FunctionsController@destroyMessage')->name('destroy.message');
 
- 
+
             $router->get('/', 'App\Controllers\HomeController@index')->name('index');
 
             $router->get('register', 'App\Controllers\Auth\RegisterController@index')->name('register');

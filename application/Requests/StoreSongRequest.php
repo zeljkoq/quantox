@@ -20,18 +20,18 @@ class StoreSongRequest
 
         $request = Request::capture();
         $this->validator(
-        [
-            'artist' => $request->artist,
-            'track' => $request->track,
-            'link' => $request->link,
-        ],
-        [
+            [
+                'artist' => $request->artist,
+                'track'  => $request->track,
+                'link'   => $request->link,
+            ],
+            [
 
-            'artist' => 'required',
-            'track' => 'required',
-            'link' => 'required',
+                'artist' => 'required',
+                'track'  => 'required',
+                'link'   => 'required',
 
-        ]);
+            ]);
 
         var_dump($request);
     }

@@ -35,7 +35,6 @@ class RegisterController extends Controller
     {
         $request = Request::capture();
 
-
         $validator = new ValidatorFactory();
         $data = $request->only([
             'email',
@@ -44,9 +43,9 @@ class RegisterController extends Controller
             'confirm_password',
         ]);
         $rules = [
-            'email' => 'required',
-            'password' => 'required',
-            'name' => 'required',
+            'email'            => 'required',
+            'password'         => 'required',
+            'name'             => 'required',
             'confirm_password' => 'required',
         ];
         $result = $validator->make($data, $rules);
@@ -55,8 +54,8 @@ class RegisterController extends Controller
         if (empty($errors)) {
 
             $params = [
-                'name' => $request->name,
-                'email' => $request->email,
+                'name'     => $request->name,
+                'email'    => $request->email,
                 'password' => sha1($request->password),
             ];
 

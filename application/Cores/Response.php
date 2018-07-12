@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Cores;
+
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +16,8 @@ class Response
      * @param $data
      * @return string
      */
-    public function response($data){
+    public function response($data)
+    {
         header('Content-Type: application/json');
         return json_encode($data);
     }
@@ -26,9 +28,10 @@ class Response
      * @param null $message
      * @return string
      */
-    public function item($model, $transformer, $message = null){
+    public function item($model, $transformer, $message = null)
+    {
         return $this->response([
-            'model' => $transformer->transform($model),
+            'model'   => $transformer->transform($model),
             'message' => $message,
         ]);
     }
@@ -39,13 +42,14 @@ class Response
      * @param null $message
      * @return string
      */
-    public function collection($collection, $transformer, $message = null){
+    public function collection($collection, $transformer, $message = null)
+    {
         $collect = [];
-        foreach ($collection as $key=>$model){
+        foreach ($collection as $key => $model) {
             $collect += [$key => $transformer->transform($model)];
         }
         return $this->response([
-            'model' => $collect,
+            'model'   => $collect,
             'message' => $message,
         ]);
     }

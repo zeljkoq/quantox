@@ -7,6 +7,7 @@
  */
 
 namespace App\Controllers\Auth;
+
 use App\Cores\Controller;
 use App\Cores\Views;
 use Illuminate\Http\Request;
@@ -36,14 +37,13 @@ class LoginController extends Controller
     {
         $request = Request::capture();
 
-
         $validator = new ValidatorFactory();
         $data = $request->only([
             'email',
             'password'
         ]);
         $rules = [
-            'email' => 'required',
+            'email'    => 'required',
             'password' => 'required',
         ];
         $result = $validator->make($data, $rules);
@@ -51,21 +51,17 @@ class LoginController extends Controller
 
         if (empty($errors)) {
 
-             $user = User::where('email', $request->email)->first();
-             if (!empty($user))
-             {
-                 if($user->password == sha1($request->password))
-                 {
-
-                     $_SESSION['user'] = true;
-                     $_SESSION['user_email'] = $request->email;
-                     redirect('songs');
-                 }
-                 $_SESSION['user'] = false;
-                 redirect('');
-             }
+            $user = User::where('email', $request->email)->first();
+            if (!empty($user)) {
+                if ($user->password == sha1($request->password)) {
+                    $_SESSION['user'] = true;
+                    $_SESSION['user_email'] = $request->email;
+                    redirect('songs');
+                }
+                $_SESSION['user'] = false;
+                redirect('');
+            }
             redirect('');
-
         }
     }
 

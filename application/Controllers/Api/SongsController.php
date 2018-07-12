@@ -66,26 +66,21 @@ class SongsController extends Controller
     public function addSong()
     {
 
-
-
-//        dd($request);
-
         $request = Request::capture();
-        $test = new StoreSongRequest();
 
-//        $validator = new ValidatorFactory();
-//        $data = $request->only([
-//            'artist',
-//            'track',
-//            'link'
-//        ]);
-//        $rules = [
-//            'artist' => 'required',
-//            'track' => 'required',
-//            'link' => 'required',
-//        ];
-//        $result = $validator->make($data, $rules);
-//        $errors = $result->errors()->toArray();
+        $validator = new ValidatorFactory();
+        $data = $request->only([
+            'artist',
+            'track',
+            'link'
+        ]);
+        $rules = [
+            'artist' => 'required',
+            'track'  => 'required',
+            'link'   => 'required',
+        ];
+        $result = $validator->make($data, $rules);
+        $errors = $result->errors()->toArray();
 
         if (empty($errors)) {
             $song = new Song();
@@ -118,7 +113,7 @@ class SongsController extends Controller
             Song::destroy($song_id);
 
             return $this->json([
-                'song' => $song_id,
+                'song'    => $song_id,
                 'message' => "Song has been deleted.",
             ]);
         }
@@ -159,8 +154,8 @@ class SongsController extends Controller
         ]);
         $rules = [
             'artist' => 'required',
-            'track' => 'required',
-            'link' => 'required',
+            'track'  => 'required',
+            'link'   => 'required',
         ];
         $result = $validator->make($data, $rules);
         $errors = $result->errors()->toArray();

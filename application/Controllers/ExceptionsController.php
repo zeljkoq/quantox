@@ -20,10 +20,10 @@ namespace App\Controllers;
  */
 class ExceptionsController
 {
-	/**
-	 * @return string
-	 */
-	public function notFound()
+    /**
+     * @return string
+     */
+    public function notFound()
     {
         return '404 not found';
     }
